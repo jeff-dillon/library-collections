@@ -56,7 +56,7 @@ the main info page for this data set here:
 
 This project also scrapes data about Young Adult book genre from wikipedia using
 the beautiful soup library. The wikipedia article is here:
-[title](url).
+[List of young adult fiction writers](https://en.m.wikipedia.org/wiki/List_of_young_adult_fiction_writers).
 
 ## Demo 1: Data Discovery
 
@@ -67,7 +67,7 @@ this dataset.
 
 ### Instructions:
 
-Document the folloiwng in the 01-discover.ipynb file:
+Document the folloiwng in the 02_discover.ipynb file:
 
 1. Provide a link to the data source and a description of the data
 1. Describe the shape of the data (# rows and # cols)
