@@ -87,3 +87,14 @@ using existing columns.
 - You can read more about Markdown, the language used in both README files and 
 Jupyter notebooks here: 
 - you can read more about web scraping here.
+
+
+
+## Demo 2: Cleaning Data
+
+Create a cleaning script (`02_clean.py`) to clean the books data.
+
+1. Remove unneeded columns.
+1. Remove records with empty and invalid PuublicationYear (0, 9999) or ItemCollection (na).
+1. Update incorrect values (2109 in PublicationYear).
+1. Add genre and audience columns.
