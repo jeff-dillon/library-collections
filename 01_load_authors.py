@@ -36,4 +36,18 @@ for section in sections:
 
 
 df = pd.DataFrame(authors, index= author_index, columns=['Name'])
+
+remove_list = [
+    '(author)',
+    '(writer)',
+    '(novelist)',
+    '(author, born 1954)',
+    '(TV producer)',
+    '(Irish author)',
+    '(young adult author)',
+    '(historian)']
+
+for item in remove_list:
+    df['Name'] = df['Name'].str.replace(item, '', regex= False)
+
 df.to_csv(output_file)

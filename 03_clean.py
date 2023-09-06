@@ -1,14 +1,14 @@
 import argparse
 import pandas as pd
 import numpy as np
-import json
 import logging
 from pathlib import Path
+
 
 # Clean data in the Louisville Metro KY - Library Collection Inventory
 #
 # Usage: 
-# $ python3 clean.py data/raw/test.csv data/clean/test-clean.csv
+# $ python3 03_clean.py data/raw/test.csv data/clean/test-clean.csv
 #
 # where:
 #   data/raw/test.csv               = path to the input file
@@ -116,11 +116,21 @@ def build_audience_column(df: pd.DataFrame) -> pd.DataFrame:
     df['Audience'] = np.select(audience_conditions, audience_values)
     return df
 
+
+def clean_author_name(df: pd.DataFrame) -> pd.DataFrame:
+    df['Author'] = df['Author'].str.replace('\d+', '')
+    df['Author'] = df['Author'].str.replace('-', '')
+    df['Author_Name_Clean'] = df['Author'].str.split(', ').str[::-1].str.join(' ')
+    return df
+
+
 def main() -> None:
     """Main cleaning logic
     """
     logging.info('Getting file names from arguments.')
-    input_file, output_file = get_file_names()
+    # input_file, output_file = get_file_names()
+    input_file = "data/raw/test.csv"
+    output_file = "data/clean/test-clean.csv"
     logging.info(f'Input file is: {input_file}')
     logging.info(f'Output file is: {output_file}')
  
@@ -146,8 +156,14 @@ def main() -> None:
     clean_df.replace(to_replace="2109", value="2019", inplace=True)
 
     logging.info('Step 4: adding genre and audience columns.')
+    logging.debug(clean_df.head())
     clean_df = build_genre_column(clean_df)
+    logging.debug(clean_df.head())
     clean_df = build_audience_column(clean_df)
+    logging.debug(clean_df.head())
+
+    logging.info('Step 5: Clean the author name in the books data')
+    clean_df = clean_author_name(clean_df)
 
     logging.info('Saving output file.')
     output_path = Path(output_file)
