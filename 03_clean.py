@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import logging
 from pathlib import Path
+import string
 
 
 # Clean data in the Louisville Metro KY - Library Collection Inventory
@@ -121,6 +122,7 @@ def clean_author_name(df: pd.DataFrame) -> pd.DataFrame:
     df['Author'] = df['Author'].str.replace('\d+', '')
     df['Author'] = df['Author'].str.replace('-', '')
     df['Author_Name_Clean'] = df['Author'].str.split(', ').str[::-1].str.join(' ')
+    df['Author_Name_Clean'] = df['Author_Name_Clean'].str.lstrip(string.digits)
     return df
 
 
@@ -128,9 +130,9 @@ def main() -> None:
     """Main cleaning logic
     """
     logging.info('Getting file names from arguments.')
-    # input_file, output_file = get_file_names()
-    input_file = "data/raw/test.csv"
-    output_file = "data/clean/test-clean.csv"
+    input_file, output_file = get_file_names()
+    # input_file = "data/raw/test.csv"
+    # output_file = "data/clean/test-clean.csv"
     logging.info(f'Input file is: {input_file}')
     logging.info(f'Output file is: {output_file}')
  
